@@ -1,14 +1,17 @@
 package Environnement;
 
+/**
+ * Représente une case dans la grille.
+ */
 public class Case {
     private int ligne;
     private int colonne;
-    private boolean obstacle;  
+    private boolean obstacle;
 
     public Case(int ligne, int colonne) {
         this.ligne = ligne;
         this.colonne = colonne;
-        this.obstacle = false;  
+        this.obstacle = false;
     }
 
     public int getLigne() {
@@ -43,5 +46,10 @@ public class Case {
             return this.ligne == other.ligne && this.colonne == other.colonne;
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * ligne + colonne;
     }
 }

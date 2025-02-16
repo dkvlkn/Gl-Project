@@ -4,14 +4,25 @@ import Environnement.Case;
 import Environnement.Grille;
 import java.util.*;
 
+/**
+ * Classe implémentant l'algorithme A* pour le calcul d'un chemin.
+ */
 public class Astar {
     private Grille grille;
-    private Case depart, arrivee;
+    private Case depart;
+    private Case arrivee;
     private Map<Case, Case> cameFrom;
     private Map<Case, Integer> gScore;
     private Map<Case, Integer> fScore;
     private PriorityQueue<Case> openSet;
 
+    /**
+     * Constructeur de l'algorithme A*.
+     *
+     * @param grille  La grille sur laquelle se fait la recherche.
+     * @param depart  La case de départ.
+     * @param arrivee La case d'arrivée.
+     */
     public Astar(Grille grille, Case depart, Case arrivee) {
         this.grille = grille;
         this.depart = depart;
@@ -20,23 +31,32 @@ public class Astar {
         this.gScore = new HashMap<>();
         this.fScore = new HashMap<>();
 
+        // La PriorityQueue trie les cases selon leur score f (f = g + h)
         this.openSet = new PriorityQueue<>(Comparator.comparingInt(c -> fScore.getOrDefault(c, Integer.MAX_VALUE)));
         gScore.put(depart, 0);
         fScore.put(depart, heuristic(depart, arrivee));
         openSet.add(depart);
     }
 
+    /**
+     * Calcule le chemin de départ à l'arrivée en utilisant A*.
+     *
+     * @return Une liste de cases représentant le chemin, ou null si aucun chemin n'est trouvé.
+     */
     public ArrayList<Case> calculerChemin() {
         while (!openSet.isEmpty()) {
             Case current = openSet.poll();
+
 
             if (current.equals(arrivee)) {
                 return reconstruireChemin(current);
             }
 
+
             for (Case voisin : grille.getVoisins(current)) {
+
                 if (voisin == null || grille.estObstacle(voisin.getLigne(), voisin.getColonne())) {
-                    continue; // Ignore les obstacles et les cases nulles
+                    continue;
                 }
 
                 int tentativeGScore = gScore.getOrDefault(current, Integer.MAX_VALUE) + 1;
@@ -50,9 +70,16 @@ public class Astar {
                 }
             }
         }
-        return null; // Aucun chemin trouvé
+     
+        return null;
     }
 
+    /**
+     * Reconstruit le chemin en remontant les prédécesseurs.
+     *
+     * @param current La case d'arrivée.
+     * @return Une liste de cases du départ à l'arrivée.
+     */
     private ArrayList<Case> reconstruireChemin(Case current) {
         ArrayList<Case> chemin = new ArrayList<>();
         while (cameFrom.containsKey(current)) {
@@ -63,6 +90,13 @@ public class Astar {
         return chemin;
     }
 
+    /**
+     * Calcule l'heuristique (distance de Manhattan).
+     *
+     * @param a Case de départ.
+     * @param b Case d'arrivée.
+     * @return La distance de Manhattan entre les deux cases.
+     */
     private int heuristic(Case a, Case b) {
         return Math.abs(a.getLigne() - b.getLigne()) + Math.abs(a.getColonne() - b.getColonne());
     }

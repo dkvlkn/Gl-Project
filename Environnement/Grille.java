@@ -2,8 +2,10 @@ package Environnement;
 
 import java.util.ArrayList;
 import java.util.List;
-import Environnement.Case;
 
+/**
+ * Représente la grille de jeu.
+ */
 public class Grille {
     private int nombreLignes;
     private int nombreColonnes;
@@ -21,6 +23,12 @@ public class Grille {
         }
     }
 
+    /**
+     * Renvoie la liste des voisins d'une case (haut, bas, gauche, droite) qui ne sont pas des obstacles.
+     *
+     * @param c La case dont on veut les voisins.
+     * @return La liste des cases voisines.
+     */
     public List<Case> getVoisins(Case c) {
         List<Case> voisins = new ArrayList<>();
         int[][] directions = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
@@ -47,6 +55,12 @@ public class Grille {
         return null;
     }
 
+    /**
+     * Bascule l'état obstacle d'une case.
+     *
+     * @param ligne   La ligne de la case.
+     * @param colonne La colonne de la case.
+     */
     public void toggleObstacle(int ligne, int colonne) {
         Case c = getCase(ligne, colonne);
         if (c != null) {
@@ -54,30 +68,28 @@ public class Grille {
         }
     }
 
+    /**
+     * Marque explicitement une case comme obstacle.
+     *
+     * @param ligne   La ligne de la case.
+     * @param colonne La colonne de la case.
+     */
+    public void ajouterObstacle(int ligne, int colonne) {
+        if (estDansLesBornes(ligne, colonne)) {
+            getCase(ligne, colonne).setObstacle(true);
+        }
+    }
+
     public boolean estObstacle(int ligne, int colonne) {
         Case c = getCase(ligne, colonne);
         return c != null && c.isObstacle();
     }
-    
-    public void ajouterObstacle(int ligne, int colonne) {
-        if (ligne >= 0 && ligne < nombreLignes && colonne >= 0 && colonne < nombreColonnes) {
-            cases[ligne][colonne].setObstacle(true); // Marque la case comme un obstacle
-        }
+
+    public int getNombreLignes() {
+        return nombreLignes;
     }
 
-	public int getNombreLignes() {
-		return nombreLignes;
-	}
-
-	public void setNombreLignes(int nombreLignes) {
-		this.nombreLignes = nombreLignes;
-	}
-
-	public int getNombreColonnes() {
-		return nombreColonnes;
-	}
-
-	public void setNombreColonnes(int nombreColonnes) {
-		this.nombreColonnes = nombreColonnes;
-	}
+    public int getNombreColonnes() {
+        return nombreColonnes;
+    }
 }

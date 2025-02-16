@@ -3,9 +3,7 @@ package Algorithmes;
 import Environnement.TreeNode;
 
 /**
- * Implémentation de l'algorithme MinMax sous forme d'un arbre.
- * 
- * @author imane
+ * Implémentation de l'algorithme MinMax sous forme d'arbre.
  */
 public class MinMaxTree implements Tree {
     private TreeNode root;
@@ -14,6 +12,13 @@ public class MinMaxTree implements Tree {
         this.root = root;
     }
 
+    /**
+     * Applique l'algorithme MinMax de manière récursive.
+     *
+     * @param node         Le nœud courant.
+     * @param isMaximizing Indique si l'on maximise ou minimise.
+     * @return La valeur obtenue.
+     */
     public int minMax(TreeNode node, boolean isMaximizing) {
         if (node.isLeaf()) {
             return node.getValue();
@@ -24,10 +29,14 @@ public class MinMaxTree implements Tree {
             int value = minMax(child, !isMaximizing);
             bestValue = isMaximizing ? Math.max(bestValue, value) : Math.min(bestValue, value);
         }
-
         return bestValue;
     }
 
+    /**
+     * Renvoie le meilleur coup (score) selon MinMax.
+     *
+     * @return Le meilleur score.
+     */
     public int getBestMove() {
         return minMax(root, true);
     }
@@ -41,7 +50,6 @@ public class MinMaxTree implements Tree {
     public Tree getRightChild() {
         return root.getChildren().size() > 1 ? (Tree) root.getChildren().get(1) : null;
     }
-
 
     @Override
     public int evaluate() {
