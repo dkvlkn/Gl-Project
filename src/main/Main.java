@@ -1,11 +1,11 @@
 package main;
 
-import controller.SimulationController;
+import javax.swing.SwingUtilities;
+
+import gui.HomePage;
 
 public class Main {
     public static void main(String[] args) {
-        SimulationController controller = new SimulationController();
-        controller.startSimulation();
+        SwingUtilities.invokeLater(() -> new HomePage());
     }
 }
- 
