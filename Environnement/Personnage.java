@@ -1,5 +1,8 @@
 package Environnement;
 
+import data.Astar.Case;
+import data.Astar.Grille;
+
 /**
  * Classe représentant un personnage dans un environnement.
  * Le personnage a un nom, une position et évolue dans une grille.

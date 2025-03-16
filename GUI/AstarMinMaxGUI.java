@@ -1,9 +1,9 @@
-package GUI;
+	package GUI;
 
 import Algorithmes.Astar;
 import Algorithmes.MinMax;
-import Environnement.Case;
-import Environnement.Grille;
+import data.Astar.Case;
+import data.Astar.Grille;
 
 import javax.swing.*;
 import java.awt.*;

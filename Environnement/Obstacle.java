@@ -1,5 +1,7 @@
 package Environnement;
 
+import data.Astar.Case;
+
 /**
  * Classe représentant un obstacle dans l'environnement.
  * Un obstacle est défini par une position sur une case donnée.

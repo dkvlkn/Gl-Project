@@ -1,7 +1,7 @@
 package Algorithmes;
 
-import Environnement.Case;
-import Environnement.Grille;
+import data.Astar.Case;
+import data.Astar.Grille;
 import java.util.*;
 
 /**
@@ -11,9 +11,9 @@ public class Astar {
     private Grille grille;
     private Case depart;
     private Case arrivee;
-    private Map<Case, Case> cameFrom;
-    private Map<Case, Integer> gScore;
-    private Map<Case, Integer> fScore;
+    private HashMap<Case, Case> cameFrom;
+    private HashMap<Case, Integer> gScore;
+    private HashMap<Case, Integer> fScore;
     private PriorityQueue<Case> openSet;
 
     /**
@@ -30,9 +30,8 @@ public class Astar {
         this.cameFrom = new HashMap<>();
         this.gScore = new HashMap<>();
         this.fScore = new HashMap<>();
-
-        // La PriorityQueue trie les cases selon leur score f (f = g + h)
         this.openSet = new PriorityQueue<>(Comparator.comparingInt(c -> fScore.getOrDefault(c, Integer.MAX_VALUE)));
+
         gScore.put(depart, 0);
         fScore.put(depart, heuristic(depart, arrivee));
         openSet.add(depart);
@@ -47,14 +46,11 @@ public class Astar {
         while (!openSet.isEmpty()) {
             Case current = openSet.poll();
 
-
             if (current.equals(arrivee)) {
                 return reconstruireChemin(current);
             }
 
-
             for (Case voisin : grille.getVoisins(current)) {
-
                 if (voisin == null || grille.estObstacle(voisin.getLigne(), voisin.getColonne())) {
                     continue;
                 }
@@ -70,7 +66,6 @@ public class Astar {
                 }
             }
         }
-     
         return null;
     }
 

@@ -1,6 +1,6 @@
 package Algorithmes;
 
-import Environnement.TreeNode;
+import data.Minmax.TreeNode;
 
 /**
  * Implémentation de l'algorithme MinMax sous forme d'arbre.

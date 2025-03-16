@@ -1,7 +1,8 @@
 package Algorithmes;
 
-import Environnement.Case;
-import Environnement.Grille;
+import data.Astar.Case;
+import data.Astar.Grille;
+
 import java.util.ArrayList;
 
 /**

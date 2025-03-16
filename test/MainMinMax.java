@@ -1,7 +1,7 @@
 package test;
 
-import Environnement.TreeBuilder;
-import Environnement.TreeNode;
+import data.Minmax.TreeBuilder;
+import data.Minmax.TreeNode;
 import Algorithmes.MinMaxTree;
 
 /**
